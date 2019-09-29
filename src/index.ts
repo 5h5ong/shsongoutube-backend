@@ -1,6 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { createConnection } from 'typeorm';
-import schema from './graphql/schema';
+import schema from './schema';
 
 const server = new GraphQLServer({ schema });
 
