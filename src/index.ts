@@ -1,18 +1,8 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { createConnection } from 'typeorm';
+import schema from './graphql/schema';
 
-const typeDefs = `
-  type Query {
-    hello(name: String): String!
-  }
-`;
-const resolvers = {
-  Query: {
-    hello: (_, { name }) => `Hello ${name || 'World'}`
-  }
-};
-
-const server = new GraphQLServer({ typeDefs, resolvers });
+const server = new GraphQLServer({ schema });
 
 createConnection()
   .then(() => {
