@@ -1,6 +1,7 @@
 import { nouns, adjectives } from './sentenceContainer';
 import { User } from '../entities/User';
 import { getRepository } from 'typeorm';
+import jwt from 'jsonwebtoken';
 
 const makeNewSecret = () => {
   const nounsRandom: number = Math.floor(Math.random() * nouns.length);
@@ -16,3 +17,5 @@ export const changeSecret = async (id: number) => {
   user.secret = makeNewSecret();
   await userRepository.save(user);
 };
+
+export const makeJwtToken = () => {};
