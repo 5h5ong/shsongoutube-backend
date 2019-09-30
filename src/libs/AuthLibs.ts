@@ -20,6 +20,7 @@ export const changeSecret = async (id: number) => {
 
 export const makeJwtToken = (payload: any) => {
   const secret = 'fsihsajhk238913r818f4u';
-  const token = jwt.sign({ ...payload }, secret);
+  console.log(payload);
+  const token = jwt.sign({ payload }, secret);
   return token;
 };
