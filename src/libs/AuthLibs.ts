@@ -5,5 +5,5 @@ export const makeNewSecret = () => {
   const adjectivesRandom: number = Math.floor(
     Math.random() * adjectives.length
   );
-  return `${adjectives[adjectivesRandom]}${nouns[nounsRandom]}`;
+  return `${adjectives[adjectivesRandom]} ${nouns[nounsRandom]}`;
 };
