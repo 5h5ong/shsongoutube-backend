@@ -12,21 +12,23 @@ const jwtOptions = {
   secretOrKey: 'fsihsajhk238913r818f4u'
 };
 
-const verifyUser = (payload, done) => {
-  const user = getRepository(User).findOne(payload.id);
+const verifyUser = async (payload, done) => {
+  const user = await getRepository(User).findOne(payload.id);
+  console.log('verifyUser', payload);
   if (user) {
     return done(null, user);
   } else return done(null, false);
 };
 
-// passport.use(new Strategy(jwtOptions, verifyUser));
-// server.use(
-//   passport.authenticate('jwt', { sessions: false }, (error, user) => {
-//     if (user) {
-//       console.log(user);
-//     }
-//   })
-// );
+server.use((req, res, next) => {
+  passport.authenticate('jwt', { sessions: false }, (error, user) => {
+    if (user) {
+      console.log(user);
+    }
+    next();
+  })(req, res, next);
+});
+passport.use(new Strategy(jwtOptions, verifyUser));
 
 createConnection()
   .then(() => {
