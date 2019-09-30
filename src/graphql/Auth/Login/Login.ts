@@ -9,8 +9,9 @@ export default {
       if (user.secret === secretKey) {
         const token = makeJwtToken(user.id);
         console.log(token);
+        return true;
       } else {
-        throw new Error('인증할 수 없습니다. 다시 시도해주세요.');
+        return false;
       }
     }
   }
