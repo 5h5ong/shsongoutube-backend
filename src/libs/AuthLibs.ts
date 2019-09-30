@@ -10,8 +10,9 @@ const makeNewSecret = () => {
   return `${adjectives[adjectivesRandom]} ${nouns[nounsRandom]}`;
 };
 
-export const changeSecret = () => {
-  const user = new User();
+export const changeSecret = async (id: number) => {
+  const userRepository = getRepository(User);
+  const user = await userRepository.findOne(id);
   user.secret = makeNewSecret();
-  getRepository(User).save(user);
+  await userRepository.save(user);
 };
