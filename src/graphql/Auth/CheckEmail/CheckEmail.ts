@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import { User } from '../../../entities/User';
+import { changeSecret } from '../../../libs/AuthLibs';
 
 export default {
   Query: {
@@ -9,6 +10,7 @@ export default {
         const user = await getRepository(User).findOne({ email });
 
         if (user) {
+          changeSecret();
           return true;
         } else if (!user) {
           return false;
