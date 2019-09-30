@@ -14,7 +14,6 @@ const jwtOptions = {
 
 const verifyUser = async (payload, done) => {
   const user = await getRepository(User).findOne(payload.id);
-  console.log('verifyUser', payload);
   if (user) {
     return done(null, user);
   } else return done(null, false);
