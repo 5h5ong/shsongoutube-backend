@@ -12,8 +12,8 @@ server.use(bodyParser.json());
 
 server.use(passportMiddleware);
 server.post('/video', (req, res) => {
-  const videoName = 'sample-video.mp4';
-  const video = getVideoPath(videoName);
+  const { videoName } = req.body;
+  const video: string = getVideoPath(videoName);
   res.sendFile(video, err => {
     if (err) {
       throw new Error('영상 전달에 실패하였습니다.');
