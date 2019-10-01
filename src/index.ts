@@ -3,8 +3,12 @@ import { createConnection } from 'typeorm';
 import schema from './schema';
 import { passportMiddleware } from './passport';
 import { getVideoPath } from './libs/VideoLibs';
+import * as bodyParser from 'body-parser';
 
 const server = new GraphQLServer({ schema });
+
+// set body-parser
+server.use(bodyParser.json());
 
 server.use(passportMiddleware);
 server.post('/video', (req, res) => {
