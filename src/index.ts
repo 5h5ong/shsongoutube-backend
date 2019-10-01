@@ -5,21 +5,28 @@ import { passportMiddleware } from './passport';
 import { getVideoPath } from './libs/VideoLibs';
 import * as bodyParser from 'body-parser';
 
+import * as fs from 'fs';
+
 const server = new GraphQLServer({ schema });
 
 // set body-parser
 server.use(bodyParser.json());
 
 server.use(passportMiddleware);
-server.post('/video', (req, res) => {
+server.post('/video', (req, res, next) => {
   const { videoName } = req.body;
   const video: string = getVideoPath(videoName);
-  res.sendFile(video, err => {
-    if (err) {
-      throw new Error('영상 전달에 실패하였습니다.');
-    }
-    console.log(`${videoName} 전달 성공.`);
-  });
+  if (fs.existsSync(video)) {
+    res.sendFile(video, err => {
+      if (err) {
+        console.error(`${videoName} 전달 실패.`);
+      } else {
+        console.log(`${videoName} 전달 성공.`);
+      }
+    });
+  } else {
+    res.status(404).send('파일 없다 ㅡㅡ');
+  }
 });
 
 createConnection()
