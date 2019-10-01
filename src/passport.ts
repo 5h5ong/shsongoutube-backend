@@ -20,7 +20,7 @@ passport.use(new Strategy(jwtOptions, verifyUser));
 export const passportMiddleware = (req, res, next) => {
   passport.authenticate('jwt', { sessions: false }, (error, user) => {
     if (user) {
-      console.log(user);
+      req.user = user;
     }
     next();
   })(req, res, next);
