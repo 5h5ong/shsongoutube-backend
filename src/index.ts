@@ -4,6 +4,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import * as passport from 'passport';
 import schema from './schema';
 import { User } from './entities/User';
+import { passportMiddleware } from './passport';
 
 const server = new GraphQLServer({ schema });
 
@@ -19,14 +20,8 @@ const verifyUser = async (payload, done) => {
   } else return done(null, false);
 };
 
-server.use((req, res, next) => {
-  passport.authenticate('jwt', { sessions: false }, (error, user) => {
-    if (user) {
-      console.log(user);
-    }
-    next();
-  })(req, res, next);
-});
+server.use(passportMiddleware);
+
 passport.use(new Strategy(jwtOptions, verifyUser));
 
 createConnection()
