@@ -15,15 +15,10 @@ server.use(bodyParser.json());
 server.use(passportMiddleware);
 server.post('/video', (req, res, next) => {
   const { videoName } = req.body;
-  const video: string = getVideoPath(videoName);
-  if (fs.existsSync(video)) {
-    res.sendFile(video, err => {
-      if (err) {
-        console.error(`${videoName} 전달 실패.`);
-      } else {
-        console.log(`${videoName} 전달 성공.`);
-      }
-    });
+  const videoPath: string = getVideoPath(videoName);
+  if (fs.existsSync(videoPath)) {
+    const videoStream = fs.createReadStream(videoPath);
+    videoStream.pipe(res);
   } else {
     res.status(404).send('파일 없다 ㅡㅡ');
   }
