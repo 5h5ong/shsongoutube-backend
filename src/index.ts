@@ -3,19 +3,16 @@ import { createConnection } from 'typeorm';
 import schema from './schema';
 import { passportMiddleware } from './passport';
 import { getVideoPath } from './libs/VideoLibs';
-import * as bodyParser from 'body-parser';
 
 import * as fs from 'fs';
 
 const server = new GraphQLServer({ schema });
 
-// set body-parser
-server.use(bodyParser.json());
-
 server.use(passportMiddleware);
-server.post('/video', (req, res, next) => {
-  const { videoName } = req.body;
-  const videoPath: string = getVideoPath(videoName);
+
+server.get('/video/:filename', (req, res, next) => {
+  const { filename } = req.params;
+  const videoPath: string = getVideoPath(filename);
   if (fs.existsSync(videoPath)) {
     const videoStream = fs.createReadStream(videoPath);
     videoStream.pipe(res);
