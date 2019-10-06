@@ -3,8 +3,8 @@ import { File } from '../../../entities/File';
 
 export default {
   Query: {
-    getFile: async (_, { filename }) => {
-      const file = await getRepository(File).findOne({ filename });
+    getFile: async (_, { id }) => {
+      const file = await getRepository(File).findOne({ id });
       if (file) {
         return file;
       } else if (!file) {
