@@ -2,9 +2,6 @@ import { GraphQLServer } from 'graphql-yoga';
 import { createConnection } from 'typeorm';
 import schema from './schema';
 import { passportMiddleware } from './passport';
-import { getVideoPath } from './libs/VideoLibs';
-
-import * as fs from 'fs';
 
 const server = new GraphQLServer({ schema });
 
