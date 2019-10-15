@@ -14,6 +14,8 @@ export class File extends BaseEntity {
   filename: string;
   @Column()
   url: string;
+  @Column({ nullable: true })
+  preview: string;
   @CreateDateColumn()
   createdAt: string;
 }
