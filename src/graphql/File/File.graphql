@@ -2,4 +2,5 @@ type File {
   id: ID!
   filename: String!
   url: String!
+  preview: Stirng!
 }
