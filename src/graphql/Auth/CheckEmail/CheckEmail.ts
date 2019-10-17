@@ -3,7 +3,7 @@ import { User } from '../../../entities/User';
 import { changeSecret, sendSecret } from '../../../libs/AuthLibs';
 
 export default {
-  Query: {
+  Mutation: {
     checkEmail: async (_, { email }) => {
       // email 유효 검증
       try {
