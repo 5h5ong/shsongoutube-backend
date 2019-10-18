@@ -13,11 +13,13 @@ const makeNewSecret = () => {
   return `${adjectives[adjectivesRandom]} ${nouns[nounsRandom]}`;
 };
 
-export const changeSecret = async (id: number) => {
+export const changeSecret = async (id: number): Promise<string> => {
+  const newSecret = makeNewSecret();
   const userRepository = getRepository(User);
   const user = await userRepository.findOne(id);
-  user.secret = makeNewSecret();
+  user.secret = newSecret;
   await userRepository.save(user);
+  return newSecret;
 };
 
 export const sendSecret = (email: string, secret: string) => {

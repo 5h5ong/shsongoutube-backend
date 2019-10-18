@@ -9,8 +9,8 @@ export default {
       try {
         const user = await getRepository(User).findOne({ email });
         if (user) {
-          changeSecret(user.id);
-          sendSecret(user.email, user.secret);
+          const secret = await changeSecret(user.id);
+          sendSecret(user.email, secret);
           return true;
         } else if (!user) {
           return false;
