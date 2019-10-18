@@ -9,9 +9,11 @@ export default {
       if (user.secret === secretKey) {
         const token = makeJwtToken(user.id);
         console.log(token);
-        return true;
+        return token;
       } else {
-        return false;
+        throw Error(
+          'Secret Key 인증 과정에서 문제가 생겼습니다. 잠시 후 다시 시도해주세요.'
+        );
       }
     }
   }
