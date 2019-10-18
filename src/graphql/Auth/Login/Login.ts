@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import { User } from '../../../entities/User';
 
 export default {
-  Query: {
+  Mutation: {
     login: async (_, { email, secretKey }) => {
       const user = await getRepository(User).findOne({ email });
       if (user.secret === secretKey) {
