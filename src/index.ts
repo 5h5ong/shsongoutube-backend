@@ -3,7 +3,10 @@ import { createConnection } from 'typeorm';
 import schema from './schema';
 import { passportMiddleware } from './passport';
 
-const server = new GraphQLServer({ schema });
+const server = new GraphQLServer({
+  schema,
+  context: ({ request }) => ({ request })
+});
 
 server.use(passportMiddleware);
 
