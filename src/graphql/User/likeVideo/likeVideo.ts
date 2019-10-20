@@ -13,10 +13,10 @@ export default {
         // get user from id and connect users inside user table
         // relation을 불러오려면 relations가 필수
         const foundUser = await getRepository(User).findOne({
-          relations: ['files'],
           where: { id: user.id }
         });
-        foundUser.files = [...foundUser.files, foundFile];
+        const files = await foundUser.files;
+        foundUser.files = Promise.resolve([...files, foundFile]);
         foundUser.save();
       } catch (e) {
         console.log(e);

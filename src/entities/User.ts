@@ -21,5 +21,5 @@ export class User extends BaseEntity {
   @ManyToMany(() => File)
   // what is @JoinTable?
   @JoinTable()
-  files: File[];
+  files: Promise<File[]>;
 }
