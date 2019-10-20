@@ -11,17 +11,13 @@ export default {
       try {
         const foundFile = await getRepository(File).findOne(videoId);
         // get user from id and connect users inside user table
-        const foundUser = await getRepository(User).find({
+        // relation을 불러오려면 relations가 필수
+        const foundUser = await getRepository(User).findOne({
           relations: ['files'],
           where: { id: user.id }
         });
-        const firstUser = foundUser[0];
-        if (!firstUser.files) {
-          firstUser.files = [foundFile];
-        } else {
-          firstUser.files = [...firstUser.files, foundFile];
-        }
-        await firstUser.save();
+        foundUser.files = [...foundUser.files, foundFile];
+        foundUser.save();
       } catch (e) {
         console.log(e);
         return false;
