@@ -11,7 +11,7 @@ export default {
       try {
         const foundFile = await getRepository(File).findOne(videoId);
         // get user from id and connect users inside user table
-        // relation을 불러오려면 relations가 필수
+        // lazy relation을 이용해 relations가 필요없음
         const foundUser = await getRepository(User).findOne({
           where: { id: user.id }
         });
