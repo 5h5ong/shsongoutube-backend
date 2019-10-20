@@ -16,7 +16,15 @@ export default {
           where: { id: user.id }
         });
         const files = await foundUser.files;
-        foundUser.files = Promise.resolve([...files, foundFile]);
+        // if foundFile exists inside files, remove it.
+        // else, add foundFile inside files.
+        if (files.find(file => file.id === videoId)) {
+          foundUser.files = Promise.resolve(
+            files.filter(file => file.id !== videoId)
+          );
+        } else {
+          foundUser.files = Promise.resolve([...files, foundFile]);
+        }
         foundUser.save();
       } catch (e) {
         console.log(e);
