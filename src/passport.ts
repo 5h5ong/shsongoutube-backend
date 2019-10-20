@@ -5,7 +5,7 @@ import { User } from './entities/User';
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'fsihsajhk238913r818f4u'
+  secretOrKey: process.env.SECRET_KEY
 };
 
 const verifyUser = async (payload, done) => {
