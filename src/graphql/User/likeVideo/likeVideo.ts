@@ -12,7 +12,13 @@ export default {
         const foundFile = await getRepository(File).findOne(videoId);
         // get user from id and connect users inside user table
         const foundUser = await getRepository(User).findOne(user.id);
-        foundUser.files = [...foundUser.files, foundFile];
+        if (!foundUser.files) {
+          foundUser.files = [foundFile];
+        } else {
+          console.log('hello!');
+          foundUser.files = [...foundUser.files, foundFile];
+        }
+        await foundUser.save();
       } catch (e) {
         console.log(e);
         return false;
