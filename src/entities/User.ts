@@ -1,4 +1,12 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable
+} from 'typeorm';
+import { File } from './File';
 
 @Entity()
 export class User extends BaseEntity {
@@ -8,6 +16,10 @@ export class User extends BaseEntity {
   username: string;
   @Column()
   email: string;
-  @Column({ nullable: true })
+  @Column()
   secret: string;
+  @ManyToMany(() => File)
+  // what is @JoinTable?
+  @JoinTable()
+  files: File[];
 }
