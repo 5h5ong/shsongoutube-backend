@@ -3,5 +3,5 @@ type File {
   filename: String!
   url: String!
   preview: String!
-  isLiked: Boolean!
+  isLiked: Boolean
 }
