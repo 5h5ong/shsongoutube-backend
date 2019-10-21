@@ -1,6 +1,5 @@
 import { getRepository } from 'typeorm';
 import { User } from '../../entities/User';
-import { File } from '../../entities/File';
 export default {
   File: {
     isLiked: async (parent, __, { request }) => {
